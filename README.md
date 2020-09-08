@@ -45,8 +45,8 @@ Utilizei o postgres como Banco de Dados.
 
 Usar os padrões que estão configurados nos seguintes arquivos:
 
--- .eslintrc.js
--- .prettierc
--- .sequilizerc
--- .editorconfig
+- .eslintrc.js
+- .prettierc
+- .sequilizerc
+- .editorconfig
 
