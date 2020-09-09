@@ -1,11 +1,13 @@
 import { Sequelize, Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
-class Usuarios extends Model {
+class Usuario extends Model {
   static init(sequelize) {
     super.init(
       {
         nome: Sequelize.STRING,
         email: Sequelize.STRING,
+        senha: Sequelize.VIRTUAL,
         senha_hash: Sequelize.STRING,
         fornecedor: Sequelize.BOOLEAN,
       },
@@ -13,7 +15,19 @@ class Usuarios extends Model {
         sequelize,
       }
     );
+
+    this.addHook('beforeSave', async (usuario) => {
+      if (usuario.senha) {
+        usuario.senha_hash = await bcrypt.hash(usuario.senha, 8);
+      }
+    });
+
+    return this;
+  }
+
+  checkPassword(senha) {
+    return bcrypt.compare(senha, this.senha_hash);
   }
 }
 
-export default Usuarios;
+export default Usuario;
