@@ -1,7 +1,9 @@
 # Projeto Clinica
 
 ## Configurar o docker
-Criar um docker usando imagem do postgres para database
+
+Criar um docker usando imagem do postgres para database,
+- lembrar de configurar o arquivo database.js com as informações usada na criação do docker.
 
 ## Configurar Eslint, Prettier e EditorConfig
 
@@ -9,6 +11,11 @@ Usar as extensões:
  - Eslint
  - Prettier
  - EditorConfig
+
+## Scripts
+
+ - "dev": "nodemon src/server.js"
+ - "dev:debug": "nodemon --inspect src/server.js"
 
 ## Estamos o utilizando o YARN para gerir os modulos do Node
 
@@ -22,11 +29,8 @@ Utilizei o postgres como Banco de Dados.
 
 ## Bibliotecas
 
-### Dev:
+## Dev:
 
-- Sucrase
-- Nodemon
-- Sequelize-cli
 - eslint
 - eslint-config-airbnb-base
 - eslint-config-prettier
@@ -34,12 +38,17 @@ Utilizei o postgres como Banco de Dados.
 - eslint-plugin-prettier
 - nodemon
 - prettier
+- sequelize-cli
+- sucrase
 
-### Prod:
+## Prod:
 
 - Sequelize
 - pg
 - express
+- yup
+- jsonwebtoken
+- bcryptjs
 
 ## Padrões de código
 
