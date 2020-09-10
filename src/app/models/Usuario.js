@@ -16,13 +16,17 @@ class Usuario extends Model {
       }
     );
 
-    this.addHook('beforeSave', async (usuario) => {
+    this.addHook('beforeSave', async usuario => {
       if (usuario.senha) {
         usuario.senha_hash = await bcrypt.hash(usuario.senha, 8);
       }
     });
 
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
   }
 
   checkPassword(senha) {

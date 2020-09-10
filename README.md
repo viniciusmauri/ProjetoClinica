@@ -43,12 +43,13 @@ Utilizei o postgres como Banco de Dados.
 
 ## Prod:
 
-- Sequelize
-- pg
-- express
-- yup
-- jsonwebtoken
 - bcryptjs
+- express
+- jsonwebtoken
+- multer
+- pg
+- sequelize
+- yup
 
 ## Padrões de código
 
