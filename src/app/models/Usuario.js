@@ -9,7 +9,7 @@ class Usuario extends Model {
         email: Sequelize.STRING,
         senha: Sequelize.VIRTUAL,
         senha_hash: Sequelize.STRING,
-        fornecedor: Sequelize.BOOLEAN,
+        funcionario: Sequelize.BOOLEAN,
       },
       {
         sequelize,
@@ -26,7 +26,7 @@ class Usuario extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
+    this.belongsTo(models.Arquivo, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 
   checkPassword(senha) {

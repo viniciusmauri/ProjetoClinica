@@ -4,8 +4,9 @@ import multerConfig from './config/multer';
 
 import UsuarioController from './app/controllers/UsuarioController';
 import SessionController from './app/controllers/SessionController';
-import FileController from './app/controllers/FileController';
-import FornecedorController from './app/controllers/FornecedorController';
+import ArquivoController from './app/controllers/ArquivoController';
+import FuncionarioController from './app/controllers/FuncionarioController';
+import AgendamentoController from './app/controllers/AgendamentoController';
 
 import auth from './app/middlewares/auth';
 
@@ -19,7 +20,10 @@ routes.use(auth);
 
 routes.put('/usuarios', UsuarioController.update);
 
-routes.get('/fornecedores', FornecedorController.index);
-routes.post('/files', upload.single('file'), FileController.store);
+routes.get('/Funcionarioes', FuncionarioController.index);
+
+routes.post('/agendamentos/', AgendamentoController.store);
+
+routes.post('/arquivos', upload.single('arquivo'), ArquivoController.store);
 
 export default routes;

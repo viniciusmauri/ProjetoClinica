@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import Usuario from '../models/Usuario';
+import Arquivo from '../models/Arquivo';
 
 class UsuarioController {
   async store(req, res) {
@@ -20,13 +21,13 @@ class UsuarioController {
     if (verificaUsuarioExistente) {
       return res.status(400).json({ error: 'Usuário já cadastrado' });
     }
-    const { id, nome, email, fornecedor } = await Usuario.create(req.body);
+    const { id, nome, email, Funcionario } = await Usuario.create(req.body);
 
     return res.json({
       id,
       nome,
       email,
-      fornecedor,
+      Funcionario,
     });
   }
 
@@ -67,9 +68,18 @@ class UsuarioController {
       return res.status(401).json({ error: 'Senha não confere' });
     }
 
-    const { id, nome, provider } = await usuario.update(req.body);
+    await usuario.update(req.body);
+    const { id, nome, provider } = await Usuario.findByPk(req.usuarioId, {
+      include: [
+        {
+          model: Arquivo,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
-    return res.json({ id, nome, email, provider });
+    return res.json({ id, nome, email, provider, avatar });
   }
 }
 

@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class File extends Model {
+class Arquivo extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -9,7 +9,7 @@ class File extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `http://localhost:2121/files/${this.path}`;
+            return `http://localhost:2121/arquivos/${this.path}`;
           },
         },
       },
@@ -22,4 +22,4 @@ class File extends Model {
   }
 }
 
-export default File;
+export default Arquivo;
