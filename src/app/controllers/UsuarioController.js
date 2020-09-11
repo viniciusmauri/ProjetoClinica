@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import Usuario from '../models/Usuario';
-import Arquivo from '../models/Arquivo';
+import File from '../models/File';
 
 class UsuarioController {
   async store(req, res) {
@@ -69,17 +69,20 @@ class UsuarioController {
     }
 
     await usuario.update(req.body);
-    const { id, nome, provider } = await Usuario.findByPk(req.usuarioId, {
-      include: [
-        {
-          model: Arquivo,
-          as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
-    });
+    const { id, nome, funcionario, avatar } = await Usuario.findByPk(
+      req.usuarioId,
+      {
+        include: [
+          {
+            model: File,
+            as: 'avatar',
+            attributes: ['id', 'path', 'url'],
+          },
+        ],
+      }
+    );
 
-    return res.json({ id, nome, email, provider, avatar });
+    return res.json({ id, nome, email, funcionario, avatar });
   }
 }
 

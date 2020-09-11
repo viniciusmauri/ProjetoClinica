@@ -1,5 +1,5 @@
 import Usuario from '../models/Usuario';
-import Arquivo from '../models/Arquivo';
+import File from '../models/File';
 
 class FuncionarioController {
   async index(req, res) {
@@ -8,7 +8,7 @@ class FuncionarioController {
       attributes: ['id', 'nome', 'email', 'avatar_id'],
       include: [
         {
-          model: Arquivo,
+          model: File,
           as: 'avatar',
           attributes: ['nome', 'path', 'url'],
         },

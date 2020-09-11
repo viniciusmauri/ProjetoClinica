@@ -15,7 +15,7 @@ class App {
   middlewares() {
     this.server.use(express.json());
     this.server.use(
-      '/arquivos',
+      '/files',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
     );
   }
