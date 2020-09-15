@@ -1,11 +1,13 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import Agendamento from '../models/Agendamentos';
 import Usuario from '../models/Usuario';
 import File from '../models/File';
-import Nofiticacao from '../schemas/notificacao';
+import Nofiticacao from '../schemas/Notificacao';
+
+import Mail from '../../lib/Mail';
 
 class AgendamentoController {
   async index(req, res) {
@@ -43,7 +45,7 @@ class AgendamentoController {
 
     const { funcionario_id, date } = req.body;
 
-    const isFuncionario = await Usuario.findOne({
+    const checarFuncionario = await Usuario.findOne({
       where: { id: funcionario_id, funcionario: true },
     });
 
@@ -53,7 +55,7 @@ class AgendamentoController {
         .json({ error: 'Você não pode fazer um agendamento para você mesmo' });
     }
 
-    if (!isFuncionario) {
+    if (!checarFuncionario) {
       return res.status(401).json({
         error: 'Você só consegue criar agendamentos para funcionarios ',
       });
@@ -94,6 +96,45 @@ class AgendamentoController {
     await Nofiticacao.create({
       content: `Novo agendamento de ${usuario.nome} para o ${dataFormatada}`,
       usuario: funcionario_id,
+    });
+
+    return res.json(agendamento);
+  }
+
+  async delete(req, res) {
+    const agendamento = await Agendamento.findByPk(req.params.id, {
+      include: [
+        {
+          model: Usuario,
+          as: 'funcionario',
+          attributes: ['nome', 'email'],
+        },
+      ],
+    });
+
+    if (agendamento.usuario_id !== req.usuarioId) {
+      return res.status(401).json({
+        error: 'Você não tem permissão para cancelar este agendamento',
+      });
+    }
+
+    const dateWithSub = subHours(agendamento.date, 2);
+
+    if (isBefore(dateWithSub, new Date())) {
+      return res.status(401).json({
+        error:
+          'Você só consegue cancelar um agendamento com 2 horas de antecedência',
+      });
+    }
+
+    agendamento.canceled_at = new Date();
+
+    await agendamento.save();
+
+    await Mail.sendMail({
+      to: `${agendamento.funcionario.nome} <${agendamento.funcionario.email}>`,
+      subject: 'Agendamento cancelado!',
+      text: 'Teve um agendamento candelado.',
     });
 
     return res.json(agendamento);
