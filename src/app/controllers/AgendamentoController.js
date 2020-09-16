@@ -7,7 +7,8 @@ import Usuario from '../models/Usuario';
 import File from '../models/File';
 import Nofiticacao from '../schemas/Notificacao';
 
-import Mail from '../../lib/Mail';
+import CancellationMail from '../jobs/CancellationMail';
+import Queue from '../../lib/Queue';
 
 class AgendamentoController {
   async index(req, res) {
@@ -109,6 +110,11 @@ class AgendamentoController {
           as: 'funcionario',
           attributes: ['nome', 'email'],
         },
+        {
+          model: Usuario,
+          as: 'usuario',
+          attributes: ['nome'],
+        },
       ],
     });
 
@@ -131,10 +137,8 @@ class AgendamentoController {
 
     await agendamento.save();
 
-    await Mail.sendMail({
-      to: `${agendamento.funcionario.nome} <${agendamento.funcionario.email}>`,
-      subject: 'Agendamento cancelado!',
-      text: 'Teve um agendamento candelado.',
+    await Queue.add(CancellationMail.key, {
+      agendamento,
     });
 
     return res.json(agendamento);
