@@ -53,7 +53,8 @@ Utilizei o nodemailer e o redis, para gerenciar o envio de e-mail, com método d
     - As configs são:
       - user:
       - pass:
-    Estas estão disponíveis no seu profile do MailTrap
+
+  - Estas estão disponíveis no seu profile do MailTrap
 
 ## Bibliotecas
 
