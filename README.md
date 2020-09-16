@@ -2,22 +2,21 @@
 
 ## Configurar o docker
 
-Criar um docker usando imagem do postgres para database,
-- lembrar de configurar o arquivo database.js com as informações usada na criação do docker.
+- Criar um docker usando imagem do postgres para database,
+  - lembrar de configurar o arquivo database.js com as informações usada na criação do docker.
 
-  -- Exemplo: docker run --name "NOME_DO_CONTAINER" -p 5432:5432 -d -t postgres:12
-  -- o 12 é a versão do postgres.
+  - Exemplo: docker run --name "NOME_DO_CONTAINER" -p 5432:5432 -d -t postgres:12
+    - postgres:12 é a versão do postgres.
 
-Criar um docker para utilizar o redis
-  -- Exemplo: docker run --name "NOME_DO_CONTAINER" -p 6379:6379 -d -t redis:alpine
+- Criar um docker para utilizar o redis
+  - Exemplo: docker run --name "NOME_DO_CONTAINER" -p 6379:6379 -d -t redis:alpine
   (Por padrão o redis utiliza a porta 6379)
 
-  - utilizei a versão alpine por ser mais leve e para o uso na aplicação seria o ideal.
+    - utilizei a versão alpine por ser mais leve e para o uso na aplicação seria o ideal.
 
-Criar um docker para utilizar o Mongo
--Exemplo: docker run --name "NOME_DO_CONTAINER" -p 27017:27017 -d -t mongo:latest
-
---para utilizar a ultima versão do docker mongo
+- Criar um docker para utilizar o Mongo
+  - Exemplo: docker run --name "NOME_DO_CONTAINER" -p 27017:27017 -d -t mongo:latest
+   - para utilizar a ultima versão do docker mongo
 
 Para obter versões do docker acessar o Docker Hub pelo link:(https://hub.docker.com/)
 
