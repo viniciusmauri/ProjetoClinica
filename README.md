@@ -49,6 +49,13 @@ Utilizei o mongo como banco de dados para armazenar as notificações.
 
 Utilizei o nodemailer e o redis, para gerenciar o envio de e-mail, com método de fila de envio.
 
+  # Dev
+  - Para o ambiente de teste utilizei o MailTrap para teste de envio de e-mail. As configurações deste, deve ser feitas no arquivo src/config/mail.js
+    - As configs são:
+      - user:
+      - pass:
+    Estas estão disponíveis no seu profile do MailTrap
+
 ## Bibliotecas
 
 ## Dev:
