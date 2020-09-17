@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
-import Agendamento from '../models/Agendamentos';
+import Agendamento from '../models/Agendamento';
 import Usuario from '../models/Usuario';
 import File from '../models/File';
 import Nofiticacao from '../schemas/Notificacao';
@@ -12,10 +12,13 @@ import Queue from '../../lib/Queue';
 
 class AgendamentoController {
   async index(req, res) {
+    const { page = 1 } = req.query;
     const agendamentos = await Agendamento.findAll({
       where: { usuario_id: req.usuarioId, canceled_at: null },
       order: ['date'],
-      attributes: ['id', 'date'],
+      attributes: ['id', 'date', 'past', 'cancelavel'],
+      limit: 20,
+      offset: (page - 1) * 20,
       include: [
         {
           model: Usuario,

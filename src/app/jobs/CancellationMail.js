@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Mail from '../../lib/Mail';
 
-class CancelletionMail {
+class CancellationMail {
   get key() {
     return 'CancellationMail';
   }
@@ -29,4 +29,4 @@ class CancelletionMail {
   }
 }
 
-export default new CancelletionMail();
+export default new CancellationMail();
