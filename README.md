@@ -72,10 +72,13 @@ Utilizei o nodemailer e o redis, para gerenciar o envio de e-mail, com método d
 
 ## Prod:
 
+- @sentry/node
+- @sentry/tracing
 - bcryptjs
 - bee-queue
 - date-fns
 - express
+- express-async-errors
 - express-handlebars
 - jsonwebtoken
 - mongoose
@@ -84,6 +87,7 @@ Utilizei o nodemailer e o redis, para gerenciar o envio de e-mail, com método d
 - nodemailer-express-handlebars
 - pg
 - sequelize
+- youch
 - yup
 
 ## Padrões de código
@@ -94,4 +98,5 @@ Usar os padrões que estão configurados nos seguintes arquivos:
 - .prettierc
 - .sequilizerc
 - .editorconfig
+  - criar um arquivo .env e usar o exemplo de configuração contida no arquivo .env.example
 
